@@ -36,11 +36,29 @@ def train_network(training_data, val_data, params):
             if params['print_progress'] and (i % params['print_frequency'] == 0):
                 validation_losses.append(print_progress(sess, i, loss, losses, train_dict, validation_dict, x_norm, sindy_predict_norm_x))
 
+            # Define a minimum number of active coefficients
+            min_active_coefficients = 1
+
             if params['sequential_thresholding'] and (i % params['threshold_frequency'] == 0) and (i > 0):
+                coefficients = np.abs(sess.run(autoencoder_network['sindy_coefficients']))
+                active_coefficients = coefficients > params['coefficient_threshold']
+                
+                # Check if the number of active coefficients is below the minimum threshold
+                if np.sum(active_coefficients) < min_active_coefficients:
+                    raise ValueError('Error: Less than %d active coefficients, stopping program' % min_active_coefficients)
+
+                else:
+                    params['coefficient_mask'] = active_coefficients
+                    validation_dict['coefficient_mask:0'] = params['coefficient_mask']
+                    print('THRESHOLDING: %d active coefficients' % np.sum(params['coefficient_mask']))
+                    sindy_model_terms.append(np.sum(params['coefficient_mask']))
+
+
+                """if params['sequential_thresholding'] and (i % params['threshold_frequency'] == 0) and (i > 0):
                 params['coefficient_mask'] = np.abs(sess.run(autoencoder_network['sindy_coefficients'])) > params['coefficient_threshold']
                 validation_dict['coefficient_mask:0'] = params['coefficient_mask']
                 print('THRESHOLDING: %d active coefficients' % np.sum(params['coefficient_mask']))
-                sindy_model_terms.append(np.sum(params['coefficient_mask']))
+                sindy_model_terms.append(np.sum(params['coefficient_mask']))"""
 
         print('REFINEMENT')
         for i_refinement in range(params['refinement_epochs']):

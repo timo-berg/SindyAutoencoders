@@ -4,8 +4,10 @@ from scipy.integrate import odeint
 
 def get_pendulum_data(n_ics, noise=False):
     if noise:
+        print('Generating pendulum data with noise')
         t,x,dx,ddx,z = generate_pendulum_data_noise(n_ics)
     else:
+        print('Generating pendulum data')
         t,x,dx,ddx,z = generate_pendulum_data(n_ics)
         
     data = {}
@@ -47,7 +49,7 @@ def generate_pendulum_data_noise(n_ics):
     f  = lambda z, t : [z[1], -np.sin(z[0])]
     t = np.arange(0, 10, .02)
 
-    measurement_noise = lambda : np.random.normal(0, 0.1, (t.size,2))
+    measurement_noise = lambda : np.random.normal(0, 0.01, (t.size,2))
 
     z = np.zeros((n_ics,t.size,2))
     dz = np.zeros(z.shape)
