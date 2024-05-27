@@ -49,7 +49,7 @@ def generate_pendulum_data_noise(n_ics):
     f  = lambda z, t : [z[1], -np.sin(z[0])]
     t = np.arange(0, 10, .02)
 
-    measurement_noise = lambda : np.random.normal(0, 0.01, (t.size,2))
+    measurement_noise = lambda : np.random.normal(0, 0.1, (t.size,2))
 
     z = np.zeros((n_ics,t.size,2))
     dz = np.zeros(z.shape)
