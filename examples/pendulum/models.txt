@@ -1,10 +1,19 @@
 nonoise
 pendulum_2024_05_24_07_35_07_403539          ''                                         failed
 pendulum_2024_05_25_09_15_34_691404          '-0.46 x'                                  okay
+pendulum_2024_05_27_22_09_15_018643          '0.37  + -0.22 x^2 + 0.12 dx^2'            okayish quite distorted
+pendulum_2024_06_02_10_25_36_120649          '-0.31 x + -0.97 sin(x)'                   okay
+pendulum_2024_06_02_22_00_12_380709          '-0.14  + -0.78 sin(x)'                    okay
+pendulum_2024_06_03_08_26_47_111392          '-1.78 x*dx^2'                             failed
+
 
 noise
 pendulum_2024_05_26_07_07_55_134496         '0.46 dx^2 + -1.00 x*dx^2'                  failed
 pendulum_2024_05_27_08_27_41_375289         '0.15  + 0.71 x*dx^2 + -0.77 sin(x)'        okay
 pendulum_2024_05_26_15_48_44_861791         '0.12  + -0.72 sin(x)'                      okay
+pendulum_2024_06_02_10_16_01_563302         '0.13  + -0.50 x'                           okay
+pendulum_2024_06_02_22_00_08_649810         '-0.75 x*dx^2'                              failed
+pendulum_2024_06_03_08_27_38_270035         '-0.20 x + -0.89 sin(x)'                    okay
+pendulum_2024_05_27_16_30_25_477926         '0.43 dx^2 + -1.08 x*dx^2'                  failed
 
 
