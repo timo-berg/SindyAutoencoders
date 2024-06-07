@@ -1,2 +1,2 @@
-model_checkpoint_path: "/home/timo/COSSE/sindy/SindyAutoencoders/examples/pendulum/pendulum_2024_06_03_08_27_38_270035"
-all_model_checkpoint_paths: "/home/timo/COSSE/sindy/SindyAutoencoders/examples/pendulum/pendulum_2024_06_03_08_27_38_270035"
+model_checkpoint_path: "/home/timo/COSSE/sindy/SindyAutoencoders/examples/pendulum/pendulum_2024_06_06_08_14_13_087015"
+all_model_checkpoint_paths: "/home/timo/COSSE/sindy/SindyAutoencoders/examples/pendulum/pendulum_2024_06_06_08_14_13_087015"
