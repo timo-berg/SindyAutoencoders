@@ -2,10 +2,14 @@ import numpy as np
 from scipy.integrate import odeint
 
 
-def get_pendulum_data(n_ics, noise=False):
+def get_pendulum_data(n_ics, noise=False, forcing = False):
     if noise:
         print('Generating pendulum data with noise')
         t,x,dx,ddx,z = generate_pendulum_data_noise(n_ics)
+    elif forcing:
+        print('Generating pendulum data with forcing')
+        t,x,dx,ddx,z = generate_pendulum_data_forcing(n_ics)
+
     else:
         print('Generating pendulum data')
         t,x,dx,ddx,z = generate_pendulum_data(n_ics)
@@ -67,6 +71,32 @@ def generate_pendulum_data_noise(n_ics):
 
         z[i] += measurement_noise()
         dz[i] += measurement_noise()
+
+        i += 1
+
+    x,dx,ddx = pendulum_to_movie(z, dz)
+
+    return t,x,dx,ddx,z
+
+
+def generate_pendulum_data_forcing(n_ics):
+    F = lambda t : np.sin(t)
+    f  = lambda z, t : [z[1], -np.sin(z[0])+ F(t)]
+    t = np.arange(0, 10, .02)
+
+    z = np.zeros((n_ics,t.size,2))
+    dz = np.zeros(z.shape)
+
+    z1range = np.array([-np.pi,np.pi])
+    z2range = np.array([-2.1,2.1])
+    i = 0
+    while (i < n_ics):
+        z0 = np.array([(z1range[1]-z1range[0])*np.random.rand()+z1range[0],
+                       (z2range[1]-z2range[0])*np.random.rand()+z2range[0]])
+        if np.abs(z0[1]**2/2. - np.cos(z0[0])) > .99:
+            continue
+        z[i] = odeint(f, z0, t)
+        dz[i] = np.array([f(z[i,j], t[j]) for j in range(len(t))])
 
         i += 1
 
